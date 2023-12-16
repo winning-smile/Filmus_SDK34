@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Filmus</string>
+    <string name="genre_spinner_hint">Добавить жанр</string>
+    <string name="sort_spinner_hint">Сортировать по</string>
+    <string name="quanity_spinner_hint">Количество фильмов</string>
+    <string name="add_genre_text">Добавить жанр</string>
+    <string name="display_name_field_hint">Отображаемое имя</string>
+    <string name="solo_checkbox_text">Одиночная комната</string>
+    <string name="return_button_text">Назад</string>
+    <string name="create_room_text">Создать комнату</string>
+    <string name="join_room_text">Присоединиться</string>
+    <string name="code_field_hint">Введите код</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+    <string name="reload">Reload</string>
+    <string name="add_spot_to_first">Add spot to first</string>
+    <string name="add_spot_to_last">Add spot to last</string>
+    <string name="remove_spot_from_first">Remove spot from first</string>
+    <string name="remove_spot_from_last">Remove spot from last</string>
+    <string name="replace_first_spot">Replace first spot</string>
+    <string name="swap_first_for_last">Swap first for last</string>
+    <string name="title_activity_final">FinalActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="genreItems">
+        <item>боевик</item>
+        <item>комедия</item>
+        <item>военный</item>
+        <item>приключение</item>
+        <item>криминал</item>
+        <item>ужасы</item>
+        <item>вестерн</item>
+        <item>мультфильм</item>
+        <item>аниме</item>
+        <item>драма</item>
+        <item>триллер</item>
+        <item>фантастика</item>
+        <item>детектив</item>
+    </string-array>
+
+    <string-array name="sortItems">
+        <item>RATING</item>
+        <item>Дата выхода</item>
+    </string-array>
+
+    <string-array name="quanityItems">
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
+    </string-array>
+
+
+</resources>

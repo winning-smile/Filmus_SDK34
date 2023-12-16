@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/screen_grad"
+    tools:context=".Create">
+
+
+    <Spinner
+        android:id="@+id/genreSpinner"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:spinnerMode="dialog"
+        android:background="@color/cardview_light_background"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:entries="@array/genreItems"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/sortSpinner"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="170dp"
+        android:spinnerMode="dialog"
+        android:background="@color/cardview_light_background"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:entries="@array/sortItems"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ratingFrom"
+        android:layout_width="125dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="248dp"
+        android:background="@color/cardview_light_background"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Рейтинг от" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/RatingTo"
+        android:layout_width="125dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="248dp"
+        android:background="@color/cardview_light_background"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Рейтинг до" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/yearFrom"
+        android:layout_width="125dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="330dp"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:background="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Год от" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/yearTo"
+        android:layout_width="125dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="330dp"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:background="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Год до" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/quanitySpinner"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="410dp"
+        android:spinnerMode="dialog"
+        android:background="@color/cardview_light_background"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:entries="@array/quanityItems"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/CreateCreateButton"
+        style="@style/DefaultButton"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:text="Создать комнату"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="480dp" />
+
+    <Button
+        android:id="@+id/CreateBackButton"
+        style="@style/DefaultButton"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:text="Назад"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="550dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
