@@ -9,6 +9,20 @@
 
 
     <Button
+        android:id="@+id/JoinJoinButton"
+        style="@style/DefaultButton"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:elevation="20dp"
+        android:stateListAnimator="@null"
+        android:text="Начать"
+        android:enabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="470dp" />
+
+    <Button
         android:id="@+id/JoinBackButton"
         style="@style/DefaultButton"
         android:layout_width="250dp"
@@ -16,19 +30,6 @@
         android:elevation="20dp"
         android:stateListAnimator="@null"
         android:text="Назад"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="470dp" />
-
-    <Button
-        android:id="@+id/JoinJoinButton"
-        style="@style/DefaultButton"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        android:text="Присоединиться"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

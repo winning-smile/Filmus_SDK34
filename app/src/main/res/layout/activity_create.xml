@@ -7,154 +7,222 @@
     android:background="@drawable/screen_grad"
     tools:context=".Create">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/genreSpinner"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="100dp"
-        android:spinnerMode="dialog"
-        android:background="@color/cardview_light_background"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        android:entries="@array/genreItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/sortSpinner"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="170dp"
-        android:spinnerMode="dialog"
-        android:background="@color/cardview_light_background"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        android:entries="@array/sortItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ratingFrom"
-        android:layout_width="125dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="248dp"
-        android:background="@color/cardview_light_background"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <com.google.android.material.textfield.TextInputEditText
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Рейтинг от" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TableRow
+                android:layout_marginTop="30dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/RatingTo"
-        android:layout_width="125dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="248dp"
-        android:background="@color/cardview_light_background"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+                <LinearLayout
+                    android:id="@+id/spinnerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_weight="1">
+                    <Spinner
+                        android:id="@+id/genreSpinner"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:background="@color/cardview_light_background"
+                        android:elevation="20dp"
+                        android:entries="@array/genreItems"
+                        android:spinnerMode="dropdown"
+                        android:stateListAnimator="@null"
+                        android:layout_margin="10dp"
+                        android:minWidth="300dp"
+                        android:minHeight="50dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+            </TableRow>
 
+            <TableRow
+                android:layout_marginTop="10dp">
+                <Button
+                    android:id="@+id/CreateNewButton"
+                    style="@style/DefaultButton"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
+                    android:elevation="20dp"
+                    android:stateListAnimator="@null"
+                    android:text="Добавить жанр"
+                    android:layout_margin="10dp"
+                    android:minWidth="300dp"
+                    android:minHeight="50dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            </TableRow>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Рейтинг до" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <TableRow
+                android:layout_marginTop="10dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/yearFrom"
-        android:layout_width="125dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="330dp"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        android:background="@color/cardview_light_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintTop_toTopOf="parent">
+                <Spinner
+                    android:id="@+id/sortSpinner"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@color/cardview_light_background"
+                    android:elevation="20dp"
+                    android:entries="@array/sortItems"
+                    android:minWidth="300dp"
+                    android:minHeight="50dp"
+                    android:spinnerMode="dropdown"
+                    android:stateListAnimator="@null" />
+            </TableRow>
 
+            <TableRow
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ratingFrom"
+                    android:background="@color/cardview_light_background"
+                    android:elevation="20dp"
+                    android:stateListAnimator="@null"
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Год от" />
-    </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/yearTo"
-        android:layout_width="125dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="330dp"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        android:background="@color/cardview_light_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintTop_toTopOf="parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="text"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"
+                        android:hint="Рейтинг от" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/RatingTo"
+                    android:background="@color/cardview_light_background"
+                    android:elevation="20dp"
+                    android:stateListAnimator="@null"
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Год до" />
-    </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
 
-    <Spinner
-        android:id="@+id/quanitySpinner"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="410dp"
-        android:spinnerMode="dialog"
-        android:background="@color/cardview_light_background"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        android:entries="@array/quanityItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="text"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"
+                        android:hint="Рейтинг до" />
+                    </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
 
-    <Button
-        android:id="@+id/CreateCreateButton"
-        style="@style/DefaultButton"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        android:text="Создать комнату"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="480dp" />
+            <TableRow
+                android:layout_marginTop="20dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/yearFrom"
+                    android:background="@color/cardview_light_background"
+                    android:elevation="20dp"
+                    android:stateListAnimator="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
 
-    <Button
-        android:id="@+id/CreateBackButton"
-        style="@style/DefaultButton"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        android:text="Назад"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="550dp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Год от"
+                        android:inputType="text"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/yearTo"
+                    android:background="@color/cardview_light_background"
+                    android:elevation="20dp"
+                    android:stateListAnimator="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Год до"
+                        android:inputType="text"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp">
+
+                <Spinner
+                    android:id="@+id/quanitySpinner"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@color/cardview_light_background"
+                    android:elevation="20dp"
+                    android:entries="@array/quanityItems"
+                    android:minWidth="300dp"
+                    android:minHeight="50dp"
+                    android:spinnerMode="dropdown"
+                    android:stateListAnimator="@null" />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp">
+                <Button
+                    android:id="@+id/CreateCreateButton"
+                    style="@style/DefaultButton"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
+                    android:elevation="20dp"
+                    android:stateListAnimator="@null"
+                    android:text="Создать комнату"
+                    android:layout_margin="10dp"
+                    android:minWidth="300dp"
+                    android:minHeight="50dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp">
+                <Button
+                    android:id="@+id/CreateBackButton"
+                    style="@style/DefaultButton"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
+                    android:elevation="20dp"
+                    android:stateListAnimator="@null"
+                    android:text="Назад"
+                    android:layout_margin="10dp"
+                    android:minWidth="300dp"
+                    android:minHeight="50dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
