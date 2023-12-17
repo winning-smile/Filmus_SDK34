@@ -65,6 +65,22 @@ class Wait : AppCompatActivity() {
                         ratingV2 = film.rateV2, year = film.year,
                         posterUrl = "https://kinopoiskapiunofficial.tech/images/posters/kp/"+ film.id +".jpg")
                 }
+                conn.closeSocket()
+
+                conn.connectSocket()
+                conn.writer.write("ready".toByteArray())
+                conn.writer.flush()
+                conn.closeSocket()
+
+                conn.connectSocket()
+                conn.writer.write("ready2".toByteArray())
+                conn.writer.flush()
+                val flag = conn.reader.readLine()
+                if (flag == "ready"){
+                    runOnUiThread{
+                        createRoomButton.isEnabled = true
+                    }
+                }
             }
         }
 

@@ -61,18 +61,32 @@ class Join : AppCompatActivity() {
                             ratingV2 = film.rateV2, year = film.year,
                             posterUrl = "https://kinopoiskapiunofficial.tech/images/posters/kp/"+ film.id +".jpg")
                     }
+                    runOnUiThread {
+                        connectButton.isEnabled = false
+                        joinButton.isEnabled = true
+                    }
                 }
             }
         }
 
 
         joinButton.setOnClickListener {
-            val intent = Intent(this, Filmus::class.java)
-            intent.putExtra("filmList", filmList as Serializable?)
-            for (film in filmList){
-                Log.d("FILM_LIST", film.posterUrl)
+            val context = this
+            runBlocking {
+                val scope = CoroutineScope(Dispatchers.IO)
+                scope.launch {
+                    // ПОДКЛЮЧАЕМСЯ
+                    conn.connectSocket()
+                    // ОТПРАВЛЯЕМ ФЛАГ
+                    conn.writer.write("ready".toByteArray())
+                    conn.writer.flush()
+                    conn.closeSocket()
+                    val intent = Intent(context, Filmus::class.java)
+                    intent.putExtra("filmList", filmList as Serializable?)
+                    startActivity(intent)
+                }
             }
-            startActivity(intent)
+
         }
     }
 }
