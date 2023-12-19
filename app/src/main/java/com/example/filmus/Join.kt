@@ -42,8 +42,9 @@ class Join : AppCompatActivity() {
             runBlocking {
                 val scope = CoroutineScope(Dispatchers.IO)
                 scope.launch {
+                    val port = codeToPort(joinCode.toString())
                     // ПОДКЛЮЧАЕМСЯ
-                    conn.connectSocket()
+                    conn.connectSocket(port)
                     // ОТПРАВЛЯЕМ ФЛАГ
                     conn.writer.write("join".toByteArray())
                     conn.writer.flush()
@@ -88,5 +89,17 @@ class Join : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun codeToPort(code: String): Int {
+        var num: String = ""
+        val mapping = mapOf('A' to 0, 'B' to 1, 'C' to 2, 'D' to 3, 'E' to 4
+            , 'F' to 5, 'G' to 6, 'H' to 7, 'I' to 8, 'J' to 9)
+
+        for (letter in code){
+            num += mapping[letter]
+        }
+        Log.d("PortToCde", num)
+        return num.toInt()
     }
 }

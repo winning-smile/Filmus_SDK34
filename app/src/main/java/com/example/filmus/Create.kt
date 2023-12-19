@@ -2,6 +2,7 @@ package com.example.filmus
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -11,6 +12,13 @@ import android.widget.Spinner
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginStart
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import java.io.Serializable
 
 
 class Create : AppCompatActivity() {
@@ -23,28 +31,91 @@ class Create : AppCompatActivity() {
         val returnButton = findViewById<Button>(R.id.CreateBackButton)
         val createRoomButton = findViewById<Button>(R.id.CreateCreateButton)
         val addGenreButton = findViewById<Button>(R.id.CreateNewButton)
+        val soloCheck = findViewById<Button>(R.id.soloSwitch)
+
         rootView = findViewById(R.id.spinnerLayout)
 
         addGenreButton.setOnClickListener {
             addGenre()
         }
 
-        returnButton.setOnClickListener{
+        returnButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         createRoomButton.setOnClickListener {
-            val intent = Intent(this, Wait::class.java)
-            val genreValue: String = findViewById<Spinner>(R.id.genreSpinner).selectedItem.toString()
-            val sortValue: String = findViewById<Spinner>(R.id.sortSpinner).selectedItem.toString()
-            val quanityValue: String = findViewById<Spinner>(R.id.quanitySpinner).selectedItem.toString()
-            intent.putExtra("genreValue", genreValue)
-            intent.putExtra("sortValue", sortValue)
-            intent.putExtra("quanityValue", quanityValue)
-            startActivity(intent)
+            val context = this
+            if (soloCheck.isEnabled) {
+                runBlocking {
+                    val scope = CoroutineScope(Dispatchers.IO)
+                    scope.launch {
+                        val intent = Intent(context, Filmus::class.java)
+                        val genreValue: String =
+                            findViewById<Spinner>(R.id.genreSpinner).selectedItem.toString()
+                        val sortValue: String =
+                            findViewById<Spinner>(R.id.sortSpinner).selectedItem.toString()
+                        val quanityValue: String =
+                            findViewById<Spinner>(R.id.quanitySpinner).selectedItem.toString()
+
+                        val filmList = mutableListOf<Film>()
+                        val searchParams = Params(genreValue, sortValue)
+                        val gson = Gson()
+                        val json = gson.toJson(searchParams)
+                        val conn = SocketHandler
+                        val flag = "true"
+                        // ПОДКЛЮЧАЕМСЯ
+                        conn.connectSocket()
+                        // ОТПРАВЛЯЕМ ФЛАГ
+                        conn.writer.write("startSolo".toByteArray())
+                        conn.writer.flush()
+
+                        // ОТПРАВЛЯЕМ ДАННЫЕ ДЛЯ ЗАПРОСА
+                        conn.writer.writeUTF(json)
+                        conn.writer.flush()
+
+                        // ПОЛУЧАЕМ ФИЛЬМЫ
+                        val regex = Regex("\\{.*?\\}")
+                        val data = withContext(Dispatchers.IO) {
+                            conn.reader.readLine()
+                        }
+                        Log.d("reader conn", data)
+
+                        regex.findAll(data).forEach { result ->
+                            val film = gson.fromJson(result.value, Response::class.java)
+                            filmList += Film(
+                                fId = film.id, title = film.name, rating = film.rate,
+                                ratingV2 = film.rateV2, year = film.year,
+                                posterUrl = "https://kinopoiskapiunofficial.tech/images/posters/kp/" + film.id + ".jpg"
+                            )
+                        }
+                        conn.closeSocket()
+                        intent.putExtra("soloChecks", flag)
+                        intent.putExtra("filmList", filmList as Serializable?)
+                        for (film in filmList){
+                            Log.d("FILM_LIST", film.title)
+                        }
+
+                        startActivity(intent)
+                    }
+                }
+            }
+            else {
+                val intent = Intent(this, Wait::class.java)
+                val genreValue: String =
+                    findViewById<Spinner>(R.id.genreSpinner).selectedItem.toString()
+                val sortValue: String =
+                    findViewById<Spinner>(R.id.sortSpinner).selectedItem.toString()
+                val quanityValue: String =
+                    findViewById<Spinner>(R.id.quanitySpinner).selectedItem.toString()
+                intent.putExtra("genreValue", genreValue)
+                intent.putExtra("sortValue", sortValue)
+                intent.putExtra("quanityValue", quanityValue)
+                intent.putExtra("soloChecks", "false")
+                startActivity(intent)
             }
         }
+    }
 
     private fun addGenre(){
         // ГОРИЗОНТАЛЬНЫЙ СЛОЙ

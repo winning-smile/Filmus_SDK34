@@ -25,20 +25,21 @@
                     android:orientation="vertical"
                     android:layout_gravity="center"
                     android:layout_weight="1">
+
                     <Spinner
                         android:id="@+id/genreSpinner"
                         android:layout_width="300dp"
                         android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
                         android:background="@color/cardview_light_background"
                         android:elevation="20dp"
                         android:entries="@array/genreItems"
-                        android:spinnerMode="dropdown"
-                        android:stateListAnimator="@null"
-                        android:layout_margin="10dp"
                         android:minWidth="300dp"
                         android:minHeight="50dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"/>
+                        android:spinnerMode="dialog"
+                        android:stateListAnimator="@null" />
                 </LinearLayout>
             </TableRow>
 
@@ -81,90 +82,77 @@
 
             <TableRow
                 android:layout_marginTop="10dp">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ratingFrom"
-                    android:background="@color/cardview_light_background"
-                    android:elevation="20dp"
-                    android:stateListAnimator="@null"
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:id="@+id/ratingFrom"
+                        android:background="@color/cardview_light_background"
+                        android:elevation="20dp"
+                        android:paddingLeft="20dp"
+                        android:stateListAnimator="@null"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:inputType="text"
                         android:digits="0,1,2,3,4,5,6,7,8,9"
-                        android:hint="Рейтинг от" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:hint="Рейтинг от"/>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/RatingTo"
-                    android:background="@color/cardview_light_background"
-                    android:elevation="20dp"
-                    android:stateListAnimator="@null"
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:id="@+id/ratingTo"
+                        android:background="@color/cardview_light_background"
+                        android:elevation="20dp"
+                        android:paddingLeft="20dp"
+                        android:stateListAnimator="@null"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:inputType="text"
                         android:digits="0,1,2,3,4,5,6,7,8,9"
                         android:hint="Рейтинг до" />
-                    </com.google.android.material.textfield.TextInputLayout>
             </TableRow>
 
             <TableRow
                 android:layout_marginTop="20dp">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/yearFrom"
-                    android:background="@color/cardview_light_background"
-                    android:elevation="20dp"
-                    android:stateListAnimator="@null"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/yearFrom"
+                        android:background="@color/cardview_light_background"
+                        android:elevation="20dp"
+                        android:paddingLeft="20dp"
+                        android:stateListAnimator="@null"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:hint="Год от"
                         android:inputType="text"
                         android:digits="0,1,2,3,4,5,6,7,8,9"/>
-                    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/yearTo"
-                    android:background="@color/cardview_light_background"
-                    android:elevation="20dp"
-                    android:stateListAnimator="@null"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/yearTo"
+                        android:background="@color/cardview_light_background"
+                        android:elevation="20dp"
+                        android:paddingLeft="20dp"
+                        android:stateListAnimator="@null"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:hint="Год до"
                         android:inputType="text"
                         android:digits="0,1,2,3,4,5,6,7,8,9"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+
             </TableRow>
 
             <TableRow
@@ -178,12 +166,26 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:background="@color/cardview_light_background"
-                    android:elevation="20dp"
                     android:entries="@array/quanityItems"
                     android:minWidth="300dp"
                     android:minHeight="50dp"
-                    android:spinnerMode="dropdown"
-                    android:stateListAnimator="@null" />
+                    android:spinnerMode="dropdown"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp">
+
+                <Switch
+                    android:id="@+id/soloSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="50dp"
+                    android:switchMinWidth="50dp"
+                    android:text="Одиночная комната"
+                    android:textSize="20dp" />
+
             </TableRow>
 
             <TableRow
@@ -194,8 +196,6 @@
                     android:layout_width="250dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="30dp"
-                    android:elevation="20dp"
-                    android:stateListAnimator="@null"
                     android:text="Создать комнату"
                     android:layout_margin="10dp"
                     android:minWidth="300dp"
@@ -212,8 +212,6 @@
                     android:layout_width="250dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="30dp"
-                    android:elevation="20dp"
-                    android:stateListAnimator="@null"
                     android:text="Назад"
                     android:layout_margin="10dp"
                     android:minWidth="300dp"

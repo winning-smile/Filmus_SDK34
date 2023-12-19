@@ -11,8 +11,8 @@ object SocketHandler{
     lateinit var reader: BufferedReader
     lateinit var writer: DataOutputStream
 
-    fun connectSocket() {
-        socket = Socket("192.168.0.12", 50000)
+    fun connectSocket(port: Int = 50000) {
+        socket = Socket("192.168.0.12", port)
         reader = BufferedReader(InputStreamReader(socket.getInputStream()))
         writer = DataOutputStream(socket.getOutputStream())
     }

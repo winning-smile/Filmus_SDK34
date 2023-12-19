@@ -28,7 +28,7 @@ class Filmus : AppCompatActivity(), CardStackListener {
     private val adapter by lazy { CardStackAdapter(createSpots()) }
     private val idList = mutableListOf<String>()
     private val dirList = mutableListOf<String>()
-
+    private val soloCheck by lazy { intent.getStringExtra("soloChecks")}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filmus)
@@ -86,26 +86,56 @@ class Filmus : AppCompatActivity(), CardStackListener {
     override fun onCardDisappeared(view: View, position: Int) {
         Log.d("FILM COUNT", manager.topPosition.toString())
         if (manager.topPosition == 20) {
-            runBlocking {
-                val conn = SocketHandler
-                val scope = CoroutineScope(Dispatchers.IO)
-                val data: Map<String, String> = idList.zip(dirList).toMap()
-                val gson = Gson()
-                val json = gson.toJson(data)
+            val context = this
+            if (soloCheck == "false") {
+                runBlocking {
+                    val conn = SocketHandler
+                    val scope = CoroutineScope(Dispatchers.IO)
+                    val data: Map<String, String> = idList.zip(dirList).toMap()
+                    val gson = Gson()
+                    val json = gson.toJson(data)
 
-                val job = scope.launch {
-                    // ПОДКЛЮЧАЕМСЯ
-                    conn.connectSocket()
-                    // ОТПРАВЛЯЕМ ФЛАГ
-                    conn.writer.write("result".toByteArray())
-                    conn.writer.flush()
-                    // ОТПРАВЛЯЕМ ДАННЫЕ О ФИЛЬМАХ
-                    conn.writer.writeUTF(json)
-                    conn.writer.flush()
+                    val job = scope.launch {
+                        // ПОДКЛЮЧАЕМСЯ
+                        conn.connectSocket()
+                        // ОТПРАВЛЯЕМ ФЛАГ
+                        conn.writer.write("result".toByteArray())
+                        conn.writer.flush()
+                        // ОТПРАВЛЯЕМ ДАННЫЕ О ФИЛЬМАХ
+                        conn.writer.writeUTF(json)
+                        conn.writer.flush()
+                        val intent = Intent(context, Final::class.java)
+                        intent.putExtra("soloChecks", "false")
+                        startActivity(intent)
+                    }
+                }
+
+            }
+
+            else {
+                runBlocking {
+                    val conn = SocketHandler
+                    val scope = CoroutineScope(Dispatchers.IO)
+                    val data: Map<String, String> = idList.zip(dirList).toMap()
+                    val gson = Gson()
+                    val json = gson.toJson(data)
+
+                    val job = scope.launch {
+                        // ПОДКЛЮЧАЕМСЯ
+                        conn.connectSocket()
+                        // ОТПРАВЛЯЕМ ФЛАГ
+                        conn.writer.write("resultSolo".toByteArray())
+                        conn.writer.flush()
+                        // ОТПРАВЛЯЕМ ДАННЫЕ О ФИЛЬМАХ
+                        conn.writer.writeUTF(json)
+                        conn.writer.flush()
+
+                        val intent = Intent(context, Final::class.java)
+                        intent.putExtra("soloChecks", "true")
+                        startActivity(intent)
+                    }
                 }
             }
-            val intent = Intent(this, Final::class.java)
-            startActivity(intent)
         }
     }
 
