@@ -83,46 +83,67 @@
     <LinearLayout
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:alpha="0.9"
-        android:background="@android:color/darker_gray"
+        android:background="@color/cardview_light_background"
         android:orientation="vertical"
         android:translationY="300px"
         app:behavior_hideable="true"
         app:behavior_peekHeight="100dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+
         <TextView
             android:id="@+id/bottom_sheet_title"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:gravity="center"
             android:text="Title"
-            android:textColor="@android:color/white" />
+            android:padding="10dp"
+            android:textColor="@android:color/black" />
 
-        <TextView
-            android:id="@+id/bottom_sheet_rating"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:text="Rating"
-            android:textColor="@android:color/white" />
-
-        <TextView
-            android:id="@+id/bottom_sheet_rating_v2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:text="RatingV2"
-            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/bottom_sheet_year"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="20dp"
             android:text="Year"
-            android:textColor="@android:color/white" />
+            android:padding="10dp"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/bottom_sheet_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="Rating"
+            android:padding="10dp"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/bottom_sheet_rating_v2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="RatingV2"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/bottom_sheet_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Bio"
+            android:textColor="@android:color/black" />
+
 
     </LinearLayout>
 

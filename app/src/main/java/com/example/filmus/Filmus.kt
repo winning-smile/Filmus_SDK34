@@ -67,20 +67,24 @@ class Filmus : AppCompatActivity(), CardStackListener {
         updateBottomSheet(view.findViewById<TextView>(R.id.item_name).text.toString(),
             view.findViewById<TextView>(R.id.item_year).text.toString(),
             view.findViewById<TextView>(R.id.item_rate).text.toString(),
-            view.findViewById<TextView>(R.id.item_ratev2).text.toString())
+            view.findViewById<TextView>(R.id.item_ratev2).text.toString(),
+            view.findViewById<TextView>(R.id.item_bio).text.toString())
+
         idList.add(view.findViewById<TextView>(R.id.item_id).text.toString())
     }
 
-    private fun updateBottomSheet(p1:String, p2:String, p3:String, p4:String){
+    private fun updateBottomSheet(p1:String, p2:String, p3:String, p4:String, p5:String){
         val view = findViewById<View>(R.id.bottom_sheet)
         val titleView = view.findViewById<TextView>(R.id.bottom_sheet_title)
-        titleView.text = p1
+        titleView.text = "Название: $p1"
         val yearView = view.findViewById<TextView>(R.id.bottom_sheet_year)
-        yearView.text = p2
+        yearView.text = "Год выпуска: $p2"
         val rateView = view.findViewById<TextView>(R.id.bottom_sheet_rating)
-        rateView.text = p3
+        rateView.text = "Рейтинг Кинопоиска: $p3"
         val rate2View = view.findViewById<TextView>(R.id.bottom_sheet_rating_v2)
-        rate2View.text = p4
+        rate2View.text = "Рейтинг IMDB: $p4"
+        val bioView = view.findViewById<TextView>(R.id.bottom_sheet_bio)
+        bioView.text = "Описание: $p5"
     }
 
     override fun onCardDisappeared(view: View, position: Int) {

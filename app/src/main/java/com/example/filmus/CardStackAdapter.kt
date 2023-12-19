@@ -25,6 +25,7 @@ class CardStackAdapter(
         holder.fyear.text = film.year.toString()
         holder.rate.text = film.rateKp.toString()
         holder.ratev2.text = film.rateImdb.toString()
+        holder.bio.text = film.bio.toString()
         Glide.with(holder.image)
             .load(film.posterUrl)
             .into(holder.image)
@@ -51,6 +52,7 @@ class CardStackAdapter(
         var fyear: TextView = view.findViewById(R.id.item_year)
         var rate: TextView = view.findViewById(R.id.item_rate)
         var ratev2: TextView = view.findViewById(R.id.item_ratev2)
+        var bio: TextView = view.findViewById(R.id.item_bio)
         var image: ImageView = view.findViewById(R.id.item_image)
     }
 

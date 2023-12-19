@@ -42,7 +42,7 @@ class Wait : AppCompatActivity() {
 
         // Создаем анимацию для смещения точек вправо
         val translateRight = TranslateAnimation(0f, 20f, 0f, 0f)
-        translateRight.duration = 500 // Длительность анимации в миллисекундах
+        translateRight.duration = 1500 // Длительность анимации в миллисекундах
         translateRight.repeatCount = Animation.INFINITE // Зацикливаем анимацию
 
         // Объединяем обе анимации
@@ -63,11 +63,8 @@ class Wait : AppCompatActivity() {
                 val rateFrom = intent.getStringExtra("rateFrom")
                 val rateTo = intent.getStringExtra("rateTo")
                 val genres = intent.getStringArrayExtra("genres")
-                val searchParams =
-                    genres?.let {
-                        Params(limit, sortField, yearFrom, yearTo, rateFrom, rateTo,
-                            it, "default")
-                    }
+                val genresMinus = intent.getStringArrayExtra("genresMinus")
+                val searchParams = Params(limit, sortField, yearFrom, yearTo, rateFrom, rateTo, genres, genresMinus)
 
                 val gson = Gson()
                 val json = gson.toJson(searchParams)

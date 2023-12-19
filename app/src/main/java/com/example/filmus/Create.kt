@@ -22,7 +22,7 @@ import java.io.Serializable
 
 
 class Create : AppCompatActivity() {
-
+    private val genres = mutableListOf<LinearLayout>()
     private lateinit var rootView: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +47,12 @@ class Create : AppCompatActivity() {
         val rateFromField = findViewById<TextInputEditText>(R.id.ratingFrom)
         val rateToField = findViewById<TextInputEditText>(R.id.ratingTo)
         val quanityField  = findViewById<Spinner>(R.id.quanitySpinner)
+        var newGenres = mutableListOf<LinearLayout>()
 
         rootView = findViewById(R.id.spinnerLayout)
 
         addGenreButton.setOnClickListener {
-            addGenre()
+            newGenres = addGenre()
         }
 
         soloCheck.setOnClickListener {
@@ -71,13 +72,28 @@ class Create : AppCompatActivity() {
                     val scope = CoroutineScope(Dispatchers.IO)
                     scope.launch {
                         val intent = Intent(context, Filmus::class.java)
+                        var genreMinus = arrayOf<String>()
+                        var genrePlus = arrayOf<String>()
+                        genrePlus += genreField.selectedItem.toString()
+
+                        for (obj in newGenres){
+                            if ((obj.getChildAt(1) as Switch).isChecked){
+                                genreMinus += (obj.getChildAt(0) as Spinner).selectedItem.toString()
+                                Log.d("Minus", (obj.getChildAt(0) as Spinner).selectedItem.toString())
+                            }
+                            else{
+                                genrePlus += (obj.getChildAt(0) as Spinner).selectedItem.toString()
+                                Log.d("Plus", (obj.getChildAt(0) as Spinner).selectedItem.toString())
+                            }
+                        }
+
+
 
                         val filmList = mutableListOf<Film>()
                         val searchParams = Params(limitDict[quanityField.selectedItem.toString()],
                             sortDict[sortField.selectedItem.toString()], yearFromField.text.toString(),
                             yearToField.text.toString(), rateFromField.text.toString(),
-                            rateToField.text.toString(), arrayOf(genreField.selectedItem.toString()),
-                            "default")
+                            rateToField.text.toString(), genrePlus, genreMinus)
 
                         val gson = Gson()
                         val json = gson.toJson(searchParams)
@@ -108,7 +124,6 @@ class Create : AppCompatActivity() {
                                 posterUrl = film.posterUrl
                             )
                         }
-                        conn.closeSocket()
 
                         intent.putExtra("soloChecks", flag)
                         intent.putExtra("filmList", filmList as Serializable?)
@@ -123,25 +138,35 @@ class Create : AppCompatActivity() {
 
             else{
                 val intent = Intent(this, Wait::class.java)
-                val searchParams = Params(limitDict[quanityField.selectedItem.toString()],
-                    sortDict[sortField.selectedItem.toString()], yearFromField.text.toString(),
-                    yearToField.text.toString(), rateFromField.text.toString(),
-                    rateToField.text.toString(), arrayOf(genreField.selectedItem.toString()),
-                    "default")
+                var genreMinus = arrayOf<String>()
+                var genrePlus = arrayOf<String>()
+                genrePlus += genreField.selectedItem.toString()
+
+                for (obj in newGenres){
+                    if ((obj.getChildAt(1) as Switch).isChecked){
+                        genreMinus += (obj.getChildAt(0) as Spinner).selectedItem.toString()
+                        Log.d("Minus", (obj.getChildAt(0) as Spinner).selectedItem.toString())
+                    }
+                    else{
+                        genrePlus += (obj.getChildAt(0) as Spinner).selectedItem.toString()
+                        Log.d("Plus", (obj.getChildAt(0) as Spinner).selectedItem.toString())
+                    }
+                }
                 intent.putExtra("limit", limitDict[quanityField.selectedItem.toString()])
                 intent.putExtra("sortField", sortDict[sortField.selectedItem.toString()])
                 intent.putExtra("yearFrom", yearFromField.text.toString())
                 intent.putExtra("yearTo", yearToField.text.toString())
                 intent.putExtra("rateFrom", rateFromField.text.toString())
                 intent.putExtra("rateTo", rateToField.text.toString())
-                intent.putExtra("genres", arrayOf(genreField.selectedItem.toString()))
+                intent.putExtra("genres", genrePlus)
+                intent.putExtra("genresMinus", genreMinus)
                 intent.putExtra("soloChecks", "false")
                 startActivity(intent)
             }
         }
     }
 
-    private fun addGenre(){
+    private fun addGenre(): MutableList<LinearLayout> {
         // ГОРИЗОНТАЛЬНЫЙ СЛОЙ
         val horizontalLayout = LinearLayout(this)
         horizontalLayout.orientation = LinearLayout.HORIZONTAL
@@ -185,6 +210,7 @@ class Create : AppCompatActivity() {
         val delButtonParams = LinearLayout.LayoutParams(imageWidth, imageHeight)
         delButton.layoutParams = delButtonParams
         delButton.setOnClickListener {
+            genres.remove(horizontalLayout)
             // Удаляем горизонтальный LinearLayout при нажатии кнопки
             rootView.removeView(horizontalLayout)
         }
@@ -193,6 +219,9 @@ class Create : AppCompatActivity() {
         horizontalLayout.addView(switch)
         horizontalLayout.addView(delButton)
 
+        genres += horizontalLayout
         rootView.addView(horizontalLayout)
+
+        return genres
     }
 }
