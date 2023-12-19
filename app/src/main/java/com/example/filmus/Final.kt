@@ -35,7 +35,7 @@ class Final : AppCompatActivity() {
     private fun recieve(context:AppCompatActivity) {
         val conn = SocketHandler
         val gson = Gson()
-        val filmList = mutableListOf<Film>()
+        val resultList = mutableListOf<Film>()
         val layout = findViewById<LinearLayout>(R.id.layoutFinal)
         if (soloCheck == "true") {
             runBlocking {
@@ -55,16 +55,16 @@ class Final : AppCompatActivity() {
                     if (data != null) {
                         regex.findAll(data).forEach { result ->
                             val film = gson.fromJson(result.value, Response::class.java)
-                            filmList += Film(
-                                fId = film.id, title = film.name.toString(), rating = film.rate,
-                                ratingV2 = film.rateV2, year = film.year,
-                                posterUrl = "https://kinopoiskapiunofficial.tech/images/posters/kp/" + film.id + ".jpg"
+                            resultList += Film(
+                                fId = film.fId, title = film.title.toString(), rateKp = film.rateKp,
+                                rateImdb = film.rateImdb, year = film.year, bio = film.bio,
+                                posterUrl = film.posterUrl
                             )
-                            Log.d("FILM NAME", film.name)
+                            Log.d("FILM NAME", film.title)
                         }
 
                         runOnUiThread {
-                            for (film in filmList) {
+                            for (film in resultList) {
                                 Log.d("filmCycle", film.title)
 
                                 val textView = createTextView(context)
@@ -90,26 +90,24 @@ class Final : AppCompatActivity() {
                     // ПОЛУЧАЕМ ФИЛЬМЫ
                     val regex = Regex("\\{.*?\\}")
 
-                    val data: String? = conn.reader.readLine()
+                    val data = conn.reader.readLine()
 
                     Log.d("DATA_skipped", "true")
-                    if (data != null) {
                         regex.findAll(data).forEach { result ->
                             val film = gson.fromJson(result.value, Response::class.java)
-                            filmList += Film(
-                                fId = film.id, title = film.name.toString(), rating = film.rate,
-                                ratingV2 = film.rateV2, year = film.year,
-                                posterUrl = "https://kinopoiskapiunofficial.tech/images/posters/kp/" + film.id + ".jpg"
+                            resultList += Film(
+                                fId = film.fId, title = film.title.toString(), rateKp = film.rateKp,
+                                rateImdb = film.rateImdb, year = film.year, bio = film.bio,
+                                posterUrl = film.posterUrl
                             )
-                            Log.d("FILM NAME", film.name)
+                            Log.d("FILM NAME", film.title)
                         }
 
                         runOnUiThread {
-                            for (film in filmList) {
+                            for (film in resultList) {
                                 Log.d("filmCycle", film.title)
-                                val textView = TextView(context)
-                                textView.setTextAppearance(R.style.FinalTextView)
-                                textView.background = AppCompatResources.getDrawable(context, R.drawable.default_button_shape)
+
+                                val textView = createTextView(context)
                                 textView.text = film.title
                                 layout.addView(textView)
                             }
@@ -118,7 +116,7 @@ class Final : AppCompatActivity() {
                 }
             }
         }
-    }
+
 
     private fun createTextView(context:AppCompatActivity): TextView {
         val textView = TextView(context)

@@ -4,14 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginStart
+import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +20,7 @@ import kotlinx.coroutines.withContext
 import java.io.Serializable
 
 
+
 class Create : AppCompatActivity() {
 
     private lateinit var rootView: LinearLayout
@@ -28,11 +28,25 @@ class Create : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
 
+        val limitDict = mapOf("10 фильмов" to "10", "25 фильмов" to "25",
+            "50 фильмов" to "50", "75 фильмов" to "75", "100 фильмов" to "100")
+
+        val sortDict = mapOf("По названию" to "name", "По дате выхода" to "year",
+            "По рейтингу КиноПоиска" to "rating.kp", "По рейтингу IMDB" to "rating.imdb",
+            "По бюджету" to "budget.value", "По длинне фильма" to "movieLenght")
+
         val returnButton = findViewById<Button>(R.id.CreateBackButton)
         val createRoomButton = findViewById<Button>(R.id.CreateCreateButton)
         val addGenreButton = findViewById<Button>(R.id.CreateNewButton)
         val soloCheck = findViewById<Button>(R.id.soloSwitch)
         var soloCheckBool = false
+        val genreField = findViewById<Spinner>(R.id.genreSpinner)
+        val sortField = findViewById<Spinner>(R.id.sortSpinner)
+        val yearFromField = findViewById<TextInputEditText>(R.id.yearFrom)
+        val yearToField = findViewById<TextInputEditText>(R.id.yearTo)
+        val rateFromField = findViewById<TextInputEditText>(R.id.ratingFrom)
+        val rateToField = findViewById<TextInputEditText>(R.id.ratingTo)
+        val quanityField  = findViewById<Spinner>(R.id.quanitySpinner)
 
         rootView = findViewById(R.id.spinnerLayout)
 
@@ -57,15 +71,14 @@ class Create : AppCompatActivity() {
                     val scope = CoroutineScope(Dispatchers.IO)
                     scope.launch {
                         val intent = Intent(context, Filmus::class.java)
-                        val genreValue: String =
-                            findViewById<Spinner>(R.id.genreSpinner).selectedItem.toString()
-                        val sortValue: String =
-                            findViewById<Spinner>(R.id.sortSpinner).selectedItem.toString()
-                        val quanityValue: String =
-                            findViewById<Spinner>(R.id.quanitySpinner).selectedItem.toString()
 
                         val filmList = mutableListOf<Film>()
-                        val searchParams = Params(genreValue, sortValue)
+                        val searchParams = Params(limitDict[quanityField.selectedItem.toString()],
+                            sortDict[sortField.selectedItem.toString()], yearFromField.text.toString(),
+                            yearToField.text.toString(), rateFromField.text.toString(),
+                            rateToField.text.toString(), arrayOf(genreField.selectedItem.toString()),
+                            "default")
+
                         val gson = Gson()
                         val json = gson.toJson(searchParams)
                         val conn = SocketHandler
@@ -90,12 +103,13 @@ class Create : AppCompatActivity() {
                         regex.findAll(data).forEach { result ->
                             val film = gson.fromJson(result.value, Response::class.java)
                             filmList += Film(
-                                fId = film.id, title = film.name, rating = film.rate,
-                                ratingV2 = film.rateV2, year = film.year,
-                                posterUrl = "https://kinopoiskapiunofficial.tech/images/posters/kp/" + film.id + ".jpg"
+                                fId = film.fId, title = film.title, rateKp = film.rateKp,
+                                rateImdb = film.rateImdb, bio = film.bio, year = film.year,
+                                posterUrl = film.posterUrl
                             )
                         }
                         conn.closeSocket()
+
                         intent.putExtra("soloChecks", flag)
                         intent.putExtra("filmList", filmList as Serializable?)
                         for (film in filmList){
@@ -109,15 +123,18 @@ class Create : AppCompatActivity() {
 
             else{
                 val intent = Intent(this, Wait::class.java)
-                val genreValue: String =
-                    findViewById<Spinner>(R.id.genreSpinner).selectedItem.toString()
-                val sortValue: String =
-                    findViewById<Spinner>(R.id.sortSpinner).selectedItem.toString()
-                val quanityValue: String =
-                    findViewById<Spinner>(R.id.quanitySpinner).selectedItem.toString()
-                intent.putExtra("genreValue", genreValue)
-                intent.putExtra("sortValue", sortValue)
-                intent.putExtra("quanityValue", quanityValue)
+                val searchParams = Params(limitDict[quanityField.selectedItem.toString()],
+                    sortDict[sortField.selectedItem.toString()], yearFromField.text.toString(),
+                    yearToField.text.toString(), rateFromField.text.toString(),
+                    rateToField.text.toString(), arrayOf(genreField.selectedItem.toString()),
+                    "default")
+                intent.putExtra("limit", limitDict[quanityField.selectedItem.toString()])
+                intent.putExtra("sortField", sortDict[sortField.selectedItem.toString()])
+                intent.putExtra("yearFrom", yearFromField.text.toString())
+                intent.putExtra("yearTo", yearToField.text.toString())
+                intent.putExtra("rateFrom", rateFromField.text.toString())
+                intent.putExtra("rateTo", rateToField.text.toString())
+                intent.putExtra("genres", arrayOf(genreField.selectedItem.toString()))
                 intent.putExtra("soloChecks", "false")
                 startActivity(intent)
             }

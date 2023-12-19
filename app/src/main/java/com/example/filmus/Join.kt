@@ -30,7 +30,6 @@ class Join : AppCompatActivity() {
         val connectButton = findViewById<Button>(R.id.JoinConnectionButton)
         val codeJoinField = findViewById<TextView>(R.id.JoinTextInput)
         val joinCode = codeJoinField.text
-        var test = 50000
         val conn = SocketHandler
 
         returnButton.setOnClickListener {
@@ -38,7 +37,7 @@ class Join : AppCompatActivity() {
             startActivity(intent)
         }
 
-        connectButton.setOnClickListener{
+        connectButton.setOnClickListener {
             runBlocking {
                 val scope = CoroutineScope(Dispatchers.IO)
                 scope.launch {
@@ -58,13 +57,15 @@ class Join : AppCompatActivity() {
 
                     regex.findAll(data).forEach { result ->
                         val film = gson.fromJson(result.value, Response::class.java)
-                        filmList += Film(fId=film.id, title=film.name, rating = film.rate,
-                            ratingV2 = film.rateV2, year = film.year,
-                            posterUrl = "https://kinopoiskapiunofficial.tech/images/posters/kp/"+ film.id +".jpg")
-                    }
-                    runOnUiThread {
-                        connectButton.isEnabled = false
-                        joinButton.isEnabled = true
+                        filmList += Film(
+                            fId = film.fId, title = film.title, rateKp = film.rateKp,
+                            rateImdb = film.rateImdb, bio = film.bio, year = film.year,
+                            posterUrl = film.posterUrl
+                        )
+                        runOnUiThread {
+                            connectButton.isEnabled = false
+                            joinButton.isEnabled = true
+                        }
                     }
                 }
             }
@@ -83,6 +84,7 @@ class Join : AppCompatActivity() {
                     conn.writer.flush()
                     conn.closeSocket()
                     val intent = Intent(context, Filmus::class.java)
+                    intent.putExtra("soloChecks", "false")
                     intent.putExtra("filmList", filmList as Serializable?)
                     startActivity(intent)
                 }

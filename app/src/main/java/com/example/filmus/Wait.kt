@@ -31,15 +31,9 @@ class Wait : AppCompatActivity() {
         returnButton.setOnClickListener{ finish() }
 
         // Переменные для запроса
-        val genreValue = intent.getStringExtra("genreValue")
-        val sortValue = intent.getStringExtra("sortValue")
-        val quValue = intent.getStringExtra("quanityValue")
+
         val waitView = findViewById<TextView>(R.id.textViewWaiting)
         val filmList = mutableListOf<Film>()
-        val searchParams = Params(genreValue, sortValue)
-        val gson = Gson()
-        val json = gson.toJson(searchParams)
-        val conn = SocketHandler
 
         // Создаем анимацию для появления точек
         val fadeIn = AlphaAnimation(0.0f, 1.0f)
@@ -62,6 +56,23 @@ class Wait : AppCompatActivity() {
         runBlocking {
             val scope = CoroutineScope(Dispatchers.IO)
             scope.launch {
+                val limit = intent.getStringExtra("limit")
+                val sortField = intent.getStringExtra("sortField")
+                val yearFrom = intent.getStringExtra("yearFrom")
+                val yearTo = intent.getStringExtra("yearTo")
+                val rateFrom = intent.getStringExtra("rateFrom")
+                val rateTo = intent.getStringExtra("rateTo")
+                val genres = intent.getStringArrayExtra("genres")
+                val searchParams =
+                    genres?.let {
+                        Params(limit, sortField, yearFrom, yearTo, rateFrom, rateTo,
+                            it, "default")
+                    }
+
+                val gson = Gson()
+                val json = gson.toJson(searchParams)
+                val conn = SocketHandler
+
                 // ПОДКЛЮЧАЕМСЯ
                 conn.connectSocket()
                 // ОТПРАВЛЯЕМ ФЛАГ
@@ -69,7 +80,9 @@ class Wait : AppCompatActivity() {
                 conn.writer.flush()
                 // ПОЛУЧАЕМ КОД ДЛЯ ПОДКЛЮЧЕНИЯ
                 val code = conn.reader.readLine()
-                codeText.text = code
+                runOnUiThread{
+                    codeText.text = code
+                }
 
                 // ОТПРАВЛЯЕМ ДАННЫЕ ДЛЯ ЗАПРОСА
                 conn.writer.writeUTF(json)
@@ -84,9 +97,11 @@ class Wait : AppCompatActivity() {
 
                 regex.findAll(data).forEach { result ->
                     val film = gson.fromJson(result.value, Response::class.java)
-                    filmList += Film(fId=film.id, title=film.name, rating = film.rate,
-                        ratingV2 = film.rateV2, year = film.year,
-                        posterUrl = "https://kinopoiskapiunofficial.tech/images/posters/kp/"+ film.id +".jpg")
+                    filmList += Film(
+                        fId = film.fId, title = film.title, rateKp = film.rateKp,
+                        rateImdb = film.rateImdb, bio = film.bio, year = film.year,
+                        posterUrl = film.posterUrl
+                    )
                 }
                 conn.closeSocket()
 
@@ -110,6 +125,7 @@ class Wait : AppCompatActivity() {
         createRoomButton.setOnClickListener {
             val intent = Intent(this, Filmus::class.java)
             intent.putExtra("filmList", filmList as Serializable?)
+            intent.putExtra("soloChecks", "false")
             for (film in filmList){
                 Log.d("FILM_LIST", film.title)
             }

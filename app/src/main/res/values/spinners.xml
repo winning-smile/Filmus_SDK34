@@ -17,16 +17,20 @@
     </string-array>
 
     <string-array name="sortItems">
-        <item>RATING</item>
-        <item>Дата выхода</item>
+        <item>По названию</item>
+        <item>По дате выхода</item>
+        <item>По рейтингу КиноПоиска</item>
+        <item>По рейтингу IMDB</item>
+        <item>По бюджету</item>
+        <item>По длине фильма</item>
     </string-array>
 
     <string-array name="quanityItems">
-        <item>10</item>
-        <item>25</item>
-        <item>50</item>
-        <item>75</item>
-        <item>100</item>
+        <item>10 фильмов</item>
+        <item>25 фильмов</item>
+        <item>50 фильмов</item>
+        <item>75 фильмов</item>
+        <item>100 фильмов</item>
     </string-array>
 
 

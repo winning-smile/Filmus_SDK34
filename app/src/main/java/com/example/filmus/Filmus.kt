@@ -85,7 +85,7 @@ class Filmus : AppCompatActivity(), CardStackListener {
 
     override fun onCardDisappeared(view: View, position: Int) {
         Log.d("FILM COUNT", manager.topPosition.toString())
-        if (manager.topPosition == 20) {
+        if (manager.topPosition == adapter.itemCount - 1) {
             val context = this
             if (soloCheck == "false") {
                 runBlocking {
@@ -110,9 +110,7 @@ class Filmus : AppCompatActivity(), CardStackListener {
                     }
                 }
 
-            }
-
-            else {
+            } else {
                 runBlocking {
                     val conn = SocketHandler
                     val scope = CoroutineScope(Dispatchers.IO)
@@ -138,7 +136,6 @@ class Filmus : AppCompatActivity(), CardStackListener {
             }
         }
     }
-
     private fun setupCardStackView() {
         initialize()
     }
@@ -214,15 +211,16 @@ class Filmus : AppCompatActivity(), CardStackListener {
                 Film(
                     fId = filmList!![i].fId,
                     title = filmList!![i].title,
-                    rating = filmList!![i].rating,
-                    ratingV2 = filmList!![i].ratingV2,
+                    rateKp = filmList!![i].rateKp,
+                    rateImdb = filmList!![i].rateImdb,
+                    bio = filmList!![i].bio,
                     year = filmList!![i].year,
                     posterUrl = filmList!![i].posterUrl
                 )
             )
         }
 
-        spots.add(Film(fId=666, title="THE END OF SWIPING", rating = 0F, ratingV2 = 0F, year = 0, posterUrl = "https://images-na.ssl-images-amazon.com/images/I/71P0iCaWUTL._SL1000_.jpg"))
+        spots.add(Film(fId=666, title="THE END OF SWIPING", rateKp = 0F, rateImdb = 0F, year = 0, bio = "poop", posterUrl = "https://images-na.ssl-images-amazon.com/images/I/71P0iCaWUTL._SL1000_.jpg"))
         return spots
     }
 
