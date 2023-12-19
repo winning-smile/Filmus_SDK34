@@ -6,35 +6,50 @@
     android:layout_height="match_parent"
     android:background="@drawable/screen_grad"
     tools:context=".Final">
-
-    <LinearLayout
-        android:id="@+id/layoutFinal"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/FinalTextView"
-            android:text="Film value"
-            />
+            <LinearLayout
+                android:id="@+id/layoutFinal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:orientation="vertical">
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/FinalBackButton"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="600dp"
-        android:text="Завершить"
-        android:elevation="20dp"
-        android:stateListAnimator="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/DefaultButton"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/FinalBackButton"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:text="Завершить"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="40dp"
+                    android:layout_gravity="center"
+                    android:elevation="20dp"
+                    android:stateListAnimator="@null"
+                    style="@style/DefaultButton"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

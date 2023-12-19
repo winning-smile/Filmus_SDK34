@@ -4,9 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
+import android.view.Gravity
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,7 +52,6 @@ class Final : AppCompatActivity() {
 
                     val data: String? = conn.reader.readLine()
 
-                    Log.d("DATA_skipped", "true")
                     if (data != null) {
                         regex.findAll(data).forEach { result ->
                             val film = gson.fromJson(result.value, Response::class.java)
@@ -64,13 +66,9 @@ class Final : AppCompatActivity() {
                         runOnUiThread {
                             for (film in filmList) {
                                 Log.d("filmCycle", film.title)
-                                val textView = TextView(context)
+
+                                val textView = createTextView(context)
                                 textView.text = film.title
-                                textView.textSize = 20f
-                                textView.layoutParams = LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
-                                )
                                 layout.addView(textView)
                             }
                         }
@@ -110,12 +108,9 @@ class Final : AppCompatActivity() {
                             for (film in filmList) {
                                 Log.d("filmCycle", film.title)
                                 val textView = TextView(context)
+                                textView.setTextAppearance(R.style.FinalTextView)
+                                textView.background = AppCompatResources.getDrawable(context, R.drawable.default_button_shape)
                                 textView.text = film.title
-                                textView.textSize = 20f
-                                textView.layoutParams = LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
-                                )
                                 layout.addView(textView)
                             }
                         }
@@ -123,5 +118,50 @@ class Final : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun createTextView(context:AppCompatActivity): TextView {
+        val textView = TextView(context)
+        val widthInDp = 300
+        val widthInPixels = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            widthInDp.toFloat(),
+            resources.displayMetrics
+        ).toInt()
+
+        val heightInDp = 60
+        val heightInPixels = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            heightInDp.toFloat(),
+            resources.displayMetrics
+        ).toInt()
+
+        val layoutParams = LinearLayout.LayoutParams(
+            widthInPixels, // Конвертируйте dp в пиксели
+            heightInPixels
+        )
+
+        val marginTopInDp = 20
+        val marginInPixels = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            marginTopInDp.toFloat(),
+            resources.displayMetrics
+        ).toInt()
+        layoutParams.setMargins(0, marginInPixels, 0, 0)
+        layoutParams.gravity = Gravity.CENTER
+
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
+        val paddingInPixels = dpToPx(20)
+        val paddingInPixelsTop = dpToPx(10)
+        textView.setPadding(paddingInPixels, paddingInPixelsTop, paddingInPixels, 0)
+        textView.layoutParams = layoutParams
+        textView.background = AppCompatResources.getDrawable(context, R.drawable.default_button_shape)
+
+        return textView
+    }
+
+    private fun AppCompatActivity.dpToPx(dp: Int): Int {
+        val density = resources.displayMetrics.density
+        return (dp.toFloat() * density).toInt()
     }
 }

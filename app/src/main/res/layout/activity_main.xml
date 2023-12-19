@@ -36,5 +36,17 @@
         app:layout_constraintTop_toBottomOf="@+id/createMainButton"
         style="@style/DefaultButton"/>
 
+    <ImageView
+        android:id="@+id/view"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="540dp"
+        android:layout_marginEnd="56dp"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:src="@drawable/dynapuff_filmus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

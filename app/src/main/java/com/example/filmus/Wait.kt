@@ -2,6 +2,10 @@ package com.example.filmus
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationSet
+import android.view.animation.TranslateAnimation
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -30,11 +34,30 @@ class Wait : AppCompatActivity() {
         val genreValue = intent.getStringExtra("genreValue")
         val sortValue = intent.getStringExtra("sortValue")
         val quValue = intent.getStringExtra("quanityValue")
+        val waitView = findViewById<TextView>(R.id.textViewWaiting)
         val filmList = mutableListOf<Film>()
         val searchParams = Params(genreValue, sortValue)
         val gson = Gson()
         val json = gson.toJson(searchParams)
         val conn = SocketHandler
+
+        // Создаем анимацию для появления точек
+        val fadeIn = AlphaAnimation(0.0f, 1.0f)
+        fadeIn.duration = 500 // Длительность анимации в миллисекундах
+        fadeIn.repeatCount = Animation.INFINITE // Зацикливаем анимацию
+
+        // Создаем анимацию для смещения точек вправо
+        val translateRight = TranslateAnimation(0f, 20f, 0f, 0f)
+        translateRight.duration = 500 // Длительность анимации в миллисекундах
+        translateRight.repeatCount = Animation.INFINITE // Зацикливаем анимацию
+
+        // Объединяем обе анимации
+        val animationSet = AnimationSet(true)
+        animationSet.addAnimation(fadeIn)
+        animationSet.addAnimation(translateRight)
+
+        // Запускаем анимацию
+        waitView.startAnimation(animationSet)
 
         runBlocking {
             val scope = CoroutineScope(Dispatchers.IO)

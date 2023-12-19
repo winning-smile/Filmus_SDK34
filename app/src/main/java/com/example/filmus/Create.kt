@@ -32,11 +32,17 @@ class Create : AppCompatActivity() {
         val createRoomButton = findViewById<Button>(R.id.CreateCreateButton)
         val addGenreButton = findViewById<Button>(R.id.CreateNewButton)
         val soloCheck = findViewById<Button>(R.id.soloSwitch)
+        var soloCheckBool = false
 
         rootView = findViewById(R.id.spinnerLayout)
 
         addGenreButton.setOnClickListener {
             addGenre()
+        }
+
+        soloCheck.setOnClickListener {
+            soloCheckBool = !soloCheckBool
+            Log.d("SoloCheck", soloCheckBool.toString())
         }
 
         returnButton.setOnClickListener {
@@ -46,7 +52,7 @@ class Create : AppCompatActivity() {
 
         createRoomButton.setOnClickListener {
             val context = this
-            if (soloCheck.isEnabled) {
+            if (soloCheckBool) {
                 runBlocking {
                     val scope = CoroutineScope(Dispatchers.IO)
                     scope.launch {
@@ -100,7 +106,8 @@ class Create : AppCompatActivity() {
                     }
                 }
             }
-            else {
+
+            else{
                 val intent = Intent(this, Wait::class.java)
                 val genreValue: String =
                     findViewById<Spinner>(R.id.genreSpinner).selectedItem.toString()
