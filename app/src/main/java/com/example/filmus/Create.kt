@@ -125,7 +125,7 @@ class Create : AppCompatActivity() {
                             )
                         }
 
-                        intent.putExtra("soloChecks", flag)
+                        intent.putExtra("soloChecks", "true")
                         intent.putExtra("filmList", filmList as Serializable?)
                         for (film in filmList){
                             Log.d("FILM_LIST", film.title)
